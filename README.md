@@ -29,3 +29,62 @@ Yarn
 ```javascript
 yarn add recoil
 ```
+
+## 시작하기
+
+먼저 부모트리에 RecoilRoot컴포넌트를 감싸주어야 한다
+
+```javascript
+function App() {
+  import { RecoilRoot } from "recoil";
+  return (
+    <RecoilRoot>
+      <ChildComponent />
+    </RecoilRoot>
+  );
+}
+```
+
+먼저 초기화 단계를 거치고 값을 설정하는데, 이 때에 atom함수를 사용한다
+
+```javascript
+const test = atom({
+  // 고유한 식별자를 말함
+  key: "test",
+  // 기본값을 말함
+  default: "This is Test Value",
+});
+```
+
+이후 State를 관리하기위해 useState가 아닌 useRecoilState를 사용한다
+
+```javascript
+import { useRecoilState } from "recoil";
+
+// 이전 atom함수를 사용하여 만들었던 변수를 삽입
+const [val, setVal] = useRecoilState(test);
+```
+
+값을 변경할 때 에는 setVal함수를 그대로 사용하지만,
+조회할 때에는 그냥 val로 조회하는 것이 아닌 selector함수로 조회한다.
+
+```javascript
+import { selector } from "recoil";
+
+const changeVal = selector({
+  // 식별자
+  key: "search",
+  // 매개변수로 get을 받아 받고싶은 변수를 호출
+  get: ({ get }) => get(test),
+});
+```
+
+후 생성된 changeVal 변수를 useRecoilValue함수에 인자로 전달해 사용이 가능하다
+
+```javascript
+import { useRecoilValue } from "recoil";
+
+const value = useRecoilValue(changeVal);
+
+console.log(value); // return 'This is Test Value'
+```
