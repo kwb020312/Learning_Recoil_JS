@@ -15,3 +15,17 @@ RecoilJS공식문서 첫 화면에 자신을 아래와 같이 소개하고있다
 즉 React-Query 혹은 SWR 과 매우 유사한 기능을 하고있음을 알 수 있다.
 
 개인적으로 위에 두 사이트보다 훨씬 깔끔하고 시각적인 자료, 및 다양한 언어 지원기능을 보고 정리할 맛이 났던 것 같다.
+
+## 설치
+
+NPM
+
+```javascript
+npm i recoil
+```
+
+Yarn
+
+```javascript
+yarn add recoil
+```
